@@ -29,6 +29,7 @@ void    speedtest(void);
 void    weirdtest(void);
 void    run_fuzz_test(int count);
 int     ft_printf(const char *format, ...);
+void    errortest(void);
 
 
 int	main(int argc, char **argv)
@@ -101,7 +102,59 @@ int	main(int argc, char **argv)
 		speedtest();
 	if (i == 15)
         weirdtest();
+    if (i == 16)
+        errortest();
 	return (0);
+}
+
+void    errortest(void)
+{
+    int orig, mine;
+
+    void    *p1 = (void *)0x7fff5fbff708;
+
+        test_i("Zero Pad with Plus", "%010+i", 42); // Should be +000000042
+        test_d("Zero Pad with Plus", "%010+d", 42);
+            // Precision (Small)
+        orig = printf("Orig: [%.5p]\n", p1);
+        mine = ft_printf("Mine: [%.5p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+
+        // Precision (Large - Padding zeros after 0x)
+        orig = printf("Orig: [%.20p]\n", p1);
+        mine = ft_printf("Mine: [%.20p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+
+        // Width and Precision Combined
+        orig = printf("Orig: [%25.20p]\n", p1);
+        mine = ft_printf("Mine: [%25.20p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+
+            // Precision (Small)
+        orig = printf("Orig: [%.5p]\n", p1);
+        mine = ft_printf("Mine: [%.5p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+
+        // Precision (Large - Padding zeros after 0x)
+        orig = printf("Orig: [%.20p]\n", p1);
+        mine = ft_printf("Mine: [%.20p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+
+        // Width and Precision Combined
+        orig = printf("Orig: [%25.20p]\n", p1);
+        mine = ft_printf("Mine: [%25.20p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+
+        // Left Align + Width + Precision
+        orig = printf("Orig: [%-25.20p]\n", p1);
+        mine = ft_printf("Mine: [%-25.20p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+        
+        	// Pointer with zero padding flag (usually ignored/undefined for %p)
+        orig = printf("Orig: [%020p]\n", p1);
+        mine = ft_printf("Mine: [%020p]\n", p1);
+        printf("Return: orig %d | mine %d\n\n", orig, mine);
+
 }
 
 void test_pct(char *test_name, char *format)
@@ -499,7 +552,8 @@ void	ft_i_test()
     // 5. ZERO PADDING
     test_i("Zero Pad", "%010i", 42);
     test_i("Zero Pad Neg", "%010i", -42); // Should be -000000042
-    test_i("Zero Pad with Plus", "%010+i", 42); // Should be +000000042
+    test_d("Zero Pad with Plus", "%+010d", 42);
+
 
     // 6. WIDTH & PRECISION COMBINED
     test_i("Width 10 Prec 5", "%10.5i", 42);
@@ -533,9 +587,6 @@ void	ft_i_test()
 	test_i("Left Align + Prec", "%-10.5i", 42);    // [00042     ]
 	test_i("Left Align + Sign", "%-+10i", 42);     // [+42       ]
 	test_i("Left Align INT_MIN", "%-15i", -2147483648);
-	ft_printf("Multi: [%i] [%10i] [%.5i] [%-10.5i]\n", 1, 2, 3, 4);
-	ft_printf("No Space: %i%i%i%i\n", 10, 20, 30, 40);
-	ft_printf("Text in between: Value 1 is %i and Value 2 is %+i\n", 500, -500);
 	test_i("Big Width", "%50i", 42);
 	test_i("Big Precision", "%.50i", 42);
 	test_i("Zero Flag ignored by Prec", "%010.5i", 42); // Logic: '0' flag is ignored if '.' is present
@@ -573,7 +624,7 @@ void	ft_d_test()
     // 5. ZERO PADDING
     test_d("Zero Pad", "%010d", 42);
     test_d("Zero Pad Neg", "%010d", -42); // Should be -000000042
-    test_d("Zero Pad with Plus", "%010+d", 42); // Should be +000000042
+    test_d("Zero Pad with Plus", "%+010d", 42); // Should be +000000042
 
     // 6. WIDTH & PRECISION COMBINED
     test_d("Width 10 Prec 5", "%10.5d", 42);
@@ -714,21 +765,6 @@ printf("res: m:%d o:%d\n\n", mine, orig);
 	// Field Width (Left Aligned)
 	orig = printf("Orig: [%-20p]\n", p1);
 	mine = ft_printf("Mine: [%-20p]\n", p1);
-	printf("Return: orig %d | mine %d\n\n", orig, mine);
-
-	// Precision (Small)
-	orig = printf("Orig: [%.5p]\n", p1);
-	mine = ft_printf("Mine: [%.5p]\n", p1);
-	printf("Return: orig %d | mine %d\n\n", orig, mine);
-
-	// Precision (Large - Padding zeros after 0x)
-	orig = printf("Orig: [%.20p]\n", p1);
-	mine = ft_printf("Mine: [%.20p]\n", p1);
-	printf("Return: orig %d | mine %d\n\n", orig, mine);
-
-	// Width and Precision Combined
-	orig = printf("Orig: [%25.20p]\n", p1);
-	mine = ft_printf("Mine: [%25.20p]\n", p1);
 	printf("Return: orig %d | mine %d\n\n", orig, mine);
 
 	// Left Align + Width + Precision
