@@ -6,7 +6,7 @@
 /*   By: riael <gpascu@student.42berlin.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:56:45 by riael             #+#    #+#             */
-/*   Updated: 2026/06/03 16:09:01 by riael            ###   ########.fr       */
+/*   Updated: 2026/06/09 13:18:24 by riael            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/ft_printf.h"
@@ -44,24 +44,24 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("|Proper usage:                |\n");
-		ft_printf("|test.out followed by a number|\n");
-		ft_printf("|Possible values:             |\n");
-		ft_printf("|1: Testing the %%c flag       |\n");
-		ft_printf("|2: Testing the %%s flag       |\n");
-		ft_printf("|3: Testing the %%p flag       |\n");
-		ft_printf("|4: Testing the %%d flag       |\n");
-		ft_printf("|5: Testing the %%i flag       |\n");
-		ft_printf("|6: Testing the %%u flag       |\n");
-		ft_printf("|7: Testing the %%x flag       |\n");
-		ft_printf("|8: Testing the %%X flag       |\n");
-		ft_printf("|9: Testing the %%%% flag       |\n");
-		ft_printf("|10: -0# +cspdiuxX% random    |\n");
-		ft_printf("|11: diuxXp-0# + random 2     |\n");
-        ft_printf("|12: cspdiuxX-0# + 3-in-1     |\n");
-        ft_printf("|13: sometest                 |\n");
-		ft_printf("|14: speedtest                |\n");
-        ft_printf("|15: weirdtest                |\n");
+		ft_printf("|Proper usage:                 |\n");
+		ft_printf("|check.out followed by a number|\n");
+		ft_printf("|Possible values:              |\n");
+		ft_printf("|1: Testing the %%c flag        |\n");
+		ft_printf("|2: Testing the %%s flag        |\n");
+		ft_printf("|3: Testing the %%p flag        |\n");
+		ft_printf("|4: Testing the %%d flag        |\n");
+		ft_printf("|5: Testing the %%i flag        |\n");
+		ft_printf("|6: Testing the %%u flag        |\n");
+		ft_printf("|7: Testing the %%x flag        |\n");
+		ft_printf("|8: Testing the %%X flag        |\n");
+		ft_printf("|9: Testing the %%%% flag        |\n");
+		ft_printf("|10: -0# +cspdiuxX% random     |\n");
+		ft_printf("|11: diuxXp-0# + random 2      |\n");
+        ft_printf("|12: cspdiuxX-0# + 3-in-1      |\n");
+        ft_printf("|13: sometest                  |\n");
+		ft_printf("|14: speedtest                 |\n");
+        ft_printf("|15: weirdtest                 |\n");
 		return (0);
 	}
 	i = atoi(argv[1]);
