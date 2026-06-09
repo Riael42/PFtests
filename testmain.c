@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <time.h>
 
 void	ft_c_test(void);
 void	ft_s_test(void);
@@ -30,6 +31,11 @@ void    weirdtest(void);
 void    run_fuzz_test(int count);
 int     ft_printf(const char *format, ...);
 void    errortest(void);
+void    test_d(char *test_name, char *format, int val);
+void    test_i(char *test_name, char *format, int val);
+void    run_chaos_test(int iterations);
+void    simple_chaos_test(int iterations);
+void    test_pct(char *test_name, char *format);
 
 
 int	main(int argc, char **argv)
@@ -155,6 +161,9 @@ void    errortest(void)
         mine = ft_printf("Mine: [%020p]\n", p1);
         printf("Return: orig %d | mine %d\n\n", orig, mine);
 
+          // 6. WIDTH + ZERO + MULTIPLE
+        test_pct("The Weirdo", "%010%%%-10%"); // [000000000%%         ]
+
 }
 
 void test_pct(char *test_name, char *format)
@@ -202,9 +211,6 @@ void ft_percent_test(void)
     // 5. THE CRAZY ONE
     // This tests if your parser gets confused by multiple % in a row
     test_pct("Percent Overload", "%%%%%%%%%%"); 
-    
-    // 6. WIDTH + ZERO + MULTIPLE
-    test_pct("The Weirdo", "%010%%%-10%"); // [000000000%%         ]
 	
 	// 7. THE "SPAGHETTI" COMBO
 	printf("--- Multiple Types with Percent ---\n");
